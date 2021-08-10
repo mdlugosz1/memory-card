@@ -27,10 +27,13 @@ function App() {
       imagesArray.push(image);
     }
 
+    console.log(imagesArray);
     return imagesArray;
   };
 
   console.log(images);
+
+  if (images.length === 0) return <div>LOADING</div>;
   return (
     <div>
       <Header />
