@@ -2,16 +2,18 @@ import Header from './Header';
 import Footer from './Footer';
 import Content from './Content';
 import { useEffect, useState } from 'react';
+import '../styles/App.css';
 
 function App() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const getData = await fetch('https://api.gwent.one/?key=data&response=json');
-      const data = await getData.json();
-      const images = setupImages(data.response);
-      setImages(images);
+      const getData = await fetch('https://api.gwent.one/?key=data&response=json')
+        .then((value) => value.json())
+        .then((value) => setupImages(value.response));
+
+      setImages(getData);
     })();
   }, []);
 
@@ -27,13 +29,17 @@ function App() {
       imagesArray.push(image);
     }
 
-    console.log(imagesArray);
     return imagesArray;
   };
 
-  console.log(images);
+  if (images.length === 0)
+    return (
+      <div className="loading">
+        <i className="fas fa-spinner"></i>
+        <p>Loading...</p>
+      </div>
+    );
 
-  if (images.length === 0) return <div>LOADING</div>;
   return (
     <div>
       <Header />
