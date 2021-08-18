@@ -3,24 +3,28 @@ import '../styles/Content.css';
 import Card from './Card';
 
 const Content = (props) => {
-  const [data, setData] = useState([]);
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    getTenImages();
+    getTenImages(score);
   }, []);
 
-  const getTenImages = () => {
-    let images = [];
-    for (let i = 0; i < 10; i++) {
-      images.push(props.data[i]);
-    }
+  const [score, setScore] = useState(0);
 
-    setData(images);
+  useEffect(() => {
+    getTenImages(score);
+  }, [score]);
+
+  const getTenImages = (startIndex) => {
+    const images = props.data.filter((image, index) => {
+      return index >= startIndex && index < startIndex + 10;
+    });
+
+    setCards(images);
   };
 
   const shuffleArray = () => {
-    const newArr = data
+    const newArr = cards
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
@@ -28,25 +32,10 @@ const Content = (props) => {
     return newArr;
   };
 
-  const getCardName = (e) => {
-    const name = e.target.dataset.id;
-    setSelectedImages([...selectedImages, name]);
-    console.log(selectedImages);
-  };
-
   return (
     <div className="container">
-      {data.map((image, index) => {
-        return (
-          <Card
-            image={image}
-            key={index}
-            parentState={data}
-            setState={setData}
-            shuffle={shuffleArray}
-            clicked={getCardName}
-          />
-        );
+      {cards.map((image) => {
+        return <Card image={image} key={image.name} parentState={cards} shuffle={shuffleArray} />;
       })}
     </div>
   );
