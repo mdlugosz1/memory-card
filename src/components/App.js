@@ -2,6 +2,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Content from './Content';
 import { useEffect, useState } from 'react';
+import { setupImages } from './utils/helpers';
 import '../styles/App.css';
 
 function App() {
@@ -16,21 +17,6 @@ function App() {
       setImages(getData);
     })();
   }, []);
-
-  const setupImages = (img) => {
-    const imagesArray = [];
-    const randomNumber = Math.round(Math.random() * 1048);
-
-    for (let i = randomNumber; i < randomNumber + 100; i++) {
-      const image = {
-        url: `https://gwent.one/image/gwent/assets/card/art/medium/${img[i].id.art}.jpg`,
-        name: img[i].name,
-      };
-      imagesArray.push(image);
-    }
-
-    return imagesArray;
-  };
 
   if (images.length === 0)
     return (
