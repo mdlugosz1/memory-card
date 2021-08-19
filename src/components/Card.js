@@ -1,15 +1,22 @@
 import '../styles/Card.css';
 import { useState, useEffect } from 'react';
+import { shuffleArray } from './utils/helpers';
 
 const Card = (props) => {
   let [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    props.setState(props.shuffle());
+    props.changeOrder(shuffleArray(props.cards));
   }, [counter]);
 
   const givePoint = () => {
-    setCounter(++counter);
+    if (counter < 1) {
+      setCounter(++counter);
+      props.setScore(1 + props.score);
+    } else {
+      setCounter(0);
+      props.setFinished(!props.isFinished);
+    }
   };
 
   return (
