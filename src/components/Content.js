@@ -1,41 +1,51 @@
 import { useState, useEffect } from 'react';
+import { getTenImages } from './utils/helpers';
 import '../styles/Content.css';
+import Message from './Message';
 import Card from './Card';
 
 const Content = (props) => {
   const [cards, setCards] = useState([]);
+  const startCardSet = getTenImages(0, props.data);
 
   useEffect(() => {
-    getTenImages(score);
+    setCards(startCardSet);
   }, []);
 
   const [score, setScore] = useState(0);
 
   useEffect(() => {
-    getTenImages(score);
+    if (score !== 0 && score % 10 === 0) {
+      const nextCardSet = getTenImages(score, props.data);
+      setCards(nextCardSet);
+      console.log('NAJS');
+    }
+    console.log(score);
   }, [score]);
 
-  const getTenImages = (startIndex) => {
-    const images = props.data.filter((image, index) => {
-      return index >= startIndex && index < startIndex + 10;
-    });
+  const [finished, setFinished] = useState(false);
 
-    setCards(images);
-  };
-
-  const shuffleArray = () => {
-    const newArr = cards
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value);
-
-    return newArr;
-  };
+  useEffect(() => {
+    setScore(0);
+    setCards(startCardSet);
+  }, [finished]);
 
   return (
     <div className="container">
+      {finished && <Message score={score} setFinished={setFinished} />}
       {cards.map((image) => {
-        return <Card image={image} key={image.name} parentState={cards} shuffle={shuffleArray} />;
+        return (
+          <Card
+            image={image}
+            key={image.name}
+            cards={cards}
+            changeOrder={setCards}
+            score={score}
+            setScore={setScore}
+            isFinished={finished}
+            setFinished={setFinished}
+          />
+        );
       })}
     </div>
   );
