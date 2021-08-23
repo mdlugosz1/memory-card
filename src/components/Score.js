@@ -5,10 +5,10 @@ const Score = (props) => {
   return (
     <div>
       <p>
-        Current score: <span></span>
+        Current score: <span>{props.score}</span>
       </p>
       <p>
-        Best score: <span></span>
+        Best score: <span>{props.bestScore}</span>
       </p>
     </div>
   );
