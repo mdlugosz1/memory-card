@@ -1,27 +1,22 @@
 import '../styles/Card.css';
-import { useState, useEffect } from 'react';
 import { shuffleArray } from './utils/helpers';
 
 const Card = (props) => {
-  let [counter, setCounter] = useState(0);
+  const play = (e) => {
+    const name = e.target.dataset.id;
 
-  useEffect(() => {
-    props.changeOrder(shuffleArray(props.cards));
-  }, [counter]);
-
-  const givePoint = () => {
-    if (counter < 1) {
-      setCounter(++counter);
-      props.setScore(1 + props.score);
+    if (props.chosenCards.includes(name)) {
+      props.setFinished(!props.finished);
     } else {
-      setCounter(0);
-      props.setFinished(!props.isFinished);
+      props.changeOrder(shuffleArray(props.cards));
+      props.setChosenCards([...props.chosenCards, name]);
+      props.setScore(props.score + 1);
     }
   };
 
   return (
     <div className="card">
-      <img alt="" src={props.image.url} data-id={props.image.name} onClick={givePoint}></img>
+      <img alt="" src={props.image.url} data-id={props.image.name} onClick={play}></img>
       <h5>{props.image.name}</h5>
     </div>
   );
