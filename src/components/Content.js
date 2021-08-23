@@ -3,6 +3,7 @@ import { getTenImages } from './utils/helpers';
 import '../styles/Content.css';
 import Message from './Message';
 import Card from './Card';
+import Score from './Score';
 
 const Content = (props) => {
   const [cards, setCards] = useState([]);
@@ -17,22 +18,33 @@ const Content = (props) => {
   useEffect(() => {
     if (score !== 0 && score % 10 === 0) {
       const nextCardSet = getTenImages(score, props.data);
+      setChosenCards([]);
       setCards(nextCardSet);
-      console.log('NAJS');
     }
-    console.log(score);
+  }, [score]);
+
+  const [bestScore, setBestScore] = useState(0);
+
+  useEffect(() => {
+    if (score > bestScore) {
+      setBestScore(score);
+    }
   }, [score]);
 
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     setScore(0);
+    setChosenCards([]);
     setCards(startCardSet);
   }, [finished]);
+
+  const [chosenCards, setChosenCards] = useState([]);
 
   return (
     <div className="container">
       {finished && <Message score={score} setFinished={setFinished} />}
+      <Score score={score} bestScore={bestScore} />
       {cards.map((image) => {
         return (
           <Card
@@ -44,6 +56,8 @@ const Content = (props) => {
             setScore={setScore}
             isFinished={finished}
             setFinished={setFinished}
+            chosenCards={chosenCards}
+            setChosenCards={setChosenCards}
           />
         );
       })}
