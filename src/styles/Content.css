@@ -1,7 +1,15 @@
+.content {
+  background-color: #2d2f38;
+  color: white;
+  text-align: center;
+  grid-row: 2/4;
+  height: 100%;
+}
+
 .container {
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
+  margin: 100px auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr 1fr;

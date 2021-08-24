@@ -1,4 +1,39 @@
 footer {
-  position: absolute;
   bottom: 0;
+  width: 100%;
+  grid-row: 3/4;
+  position: absolute;
+  background-color: #1a1b1f;
+  text-align: center;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+footer a {
+  text-decoration: none;
+  color: white;
+}
+
+footer .git {
+  margin-left: 10px;
+}
+
+footer .api {
+  color: #b38945;
+}
+
+footer a .fa-github {
+  font-size: 20px;
+}
+
+footer::before {
+  background: url('https://www.playgwent.com/img/home/timeline-top.png') repeat-x center top;
+  content: '';
+  display: block;
+  height: 20px;
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
 }

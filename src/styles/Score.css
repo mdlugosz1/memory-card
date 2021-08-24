@@ -1,0 +1,13 @@
+.score-board {
+  position: absolute;
+  top: 20px;
+  color: white;
+}
+
+.score-board p {
+  text-align: left;
+}
+
+.best {
+  color: #b38945;
+}
