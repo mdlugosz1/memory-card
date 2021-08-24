@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import '../styles/Score.css';
 
 const Score = (props) => {
   return (
-    <div>
+    <div className="score-board">
       <p>
         Current score: <span>{props.score}</span>
       </p>
       <p>
-        Best score: <span>{props.bestScore}</span>
+        Best score: <span className="best">{props.bestScore}</span>
       </p>
     </div>
   );
