@@ -34,34 +34,39 @@ const Content = (props) => {
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
-    setScore(0);
-    setChosenCards([]);
-    setCards(startCardSet);
+    if (finished) {
+      setChosenCards([]);
+      setCards(startCardSet);
+    } else {
+      setScore(0);
+    }
   }, [finished]);
 
   const [chosenCards, setChosenCards] = useState([]);
 
   return (
-    <div className="container">
-      {finished && <Message score={score} setFinished={setFinished} />}
-      <Score score={score} bestScore={bestScore} />
-      {cards.map((image) => {
-        return (
-          <Card
-            image={image}
-            key={image.name}
-            cards={cards}
-            changeOrder={setCards}
-            score={score}
-            setScore={setScore}
-            isFinished={finished}
-            setFinished={setFinished}
-            chosenCards={chosenCards}
-            setChosenCards={setChosenCards}
-          />
-        );
-      })}
-    </div>
+    <section className="content">
+      <div className="container">
+        {finished && <Message score={score} setFinished={setFinished} />}
+        <Score score={score} bestScore={bestScore} />
+        {cards.map((image) => {
+          return (
+            <Card
+              image={image}
+              key={image.name}
+              cards={cards}
+              changeOrder={setCards}
+              score={score}
+              setScore={setScore}
+              isFinished={finished}
+              setFinished={setFinished}
+              chosenCards={chosenCards}
+              setChosenCards={setChosenCards}
+            />
+          );
+        })}
+      </div>
+    </section>
   );
 };
 
