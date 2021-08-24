@@ -3,6 +3,7 @@ import Footer from './Footer';
 import Content from './Content';
 import { useEffect, useState } from 'react';
 import { setupImages } from './utils/helpers';
+import cardback from '../images/cardback.png';
 import '../styles/App.css';
 
 function App() {
@@ -21,13 +22,13 @@ function App() {
   if (images.length === 0)
     return (
       <div className="loading">
-        <i className="fas fa-spinner"></i>
+        <img alt="cardback" src={cardback} className="loading-image"></img>
         <p>Loading...</p>
       </div>
     );
 
   return (
-    <div>
+    <div className="game">
       <Header />
       <Content data={images} />
       <Footer />
